@@ -3,6 +3,7 @@ import { Text, View, TextInput, Image, Button, TouchableOpacity, StyleSheet} fro
 import CircleImageView from 'components/CircleImageView';
 import { connect } from 'react-redux';
 import loginAsync from 'redux/signin-action-creator';
+// import { Field, reduxForm } from 'redux-form';
 
 const onButtonPress = () => {
  // Alert.alert('Button has been pressed!');
@@ -29,16 +30,23 @@ export class SignInComponent extends Component {
             urlImage={require('assets/images/check_red.png')}/>
           </View>
           <View style={{ flex: 0.5, flexDirection: 'column', justifyContent: 'center', backgroundColor: 'transparent'}}>
-            <Image style={{margin: 20, width:30, height: 30}} source={require('assets/images/user_name.png')}/>
-            <TextInput
-            style={{marginLeft: 20, height: 40, flexDirection: 'column', borderColor: 'gray', borderWidth: 1}}
-            value={this.state.username}
-            onChangeText={(username) => this.setState({username})}/>
-            <Image style={{margin: 20, width:30, height: 30}} source={require('assets/images/password.png')}/>
-            <TextInput
-            style={{marginLeft: 20, height: 40, flexDirection: 'column', borderColor: 'gray', borderWidth: 1}}
-            value={this.state.password}
-            onChangeText={(password) => this.setState({password})}/>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: 'transparent'}}>
+              <Image style={{margin: 10, width:30, height: 30}} source={require('assets/images/user_name.png')}/>
+              <TextInput
+              style={{marginLeft: 10, height: 40, width: 300, borderColor: 'gray', borderWidth: 1}}
+              value={this.state.username}
+              onChangeText={(username) => this.setState({username})}/>
+            </View>
+            <View style={{marginTop:20, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'transparent'}}>
+              <Image style={{margin: 10, width:30, height: 30}} source={require('assets/images/password.png')}/>
+              <TextInput
+              style={{marginLeft: 10, height: 40, width: 300, borderColor: 'gray', borderWidth: 1}}
+              value={this.state.password}
+              onChangeText={(password) => this.setState({password})} secureTextEntry='true'/>
+            </View>
+            <View style={{flex: 1, margin:20, flexDirection:'column', alignItems: 'flex-end', backgroundColor: 'transparent'}}>
+              <Text style={{color:'white'}}>Forgot password</Text>
+            </View>
           </View>
           <View style={{flex: 0.2, flexDirection: 'row', justifyContent: 'center', backgroundColor: 'transparent'}}>
             <TouchableOpacity style ={styles.sign_in_button} onPress={this.handleSignIn}>
