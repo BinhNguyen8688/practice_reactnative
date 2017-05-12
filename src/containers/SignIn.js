@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, Image, Button, TouchableOpacity, StyleSheet} from 'react-native';
 import CircleImageView from 'components/CircleImageView';
+import { connect } from 'react-redux';
+import loginAsync from 'redux/signin-action-creator';
+
 const onButtonPress = () => {
  // Alert.alert('Button has been pressed!');
 };
-export default class SignInComponent extends Component {
+export class SignInComponent extends Component {
   constructor(props) {
    super(props);
-   this.state = { username: 'Username', password: 'Password' };
- };
-
+   this.state = {
+     username: '',
+     password: '' };
+   //this.handleSignIn = this.handleSignIn.bind(this);
+  };
+  handleSignIn = () => {
+     this.props.login({username: this.state.username, password: this.state.password});
+  }
   render() {
     return (
       <Image
@@ -24,14 +32,16 @@ export default class SignInComponent extends Component {
             <Image style={{margin: 20, width:30, height: 30}} source={require('assets/images/user_name.png')}/>
             <TextInput
             style={{marginLeft: 20, height: 40, flexDirection: 'column', borderColor: 'gray', borderWidth: 1}}
-            value={this.state.username}/>
+            value={this.state.username}
+            onChangeText={(username) => this.setState({username})}/>
             <Image style={{margin: 20, width:30, height: 30}} source={require('assets/images/password.png')}/>
             <TextInput
             style={{marginLeft: 20, height: 40, flexDirection: 'column', borderColor: 'gray', borderWidth: 1}}
-            value={this.state.password} secureTextEntry='true'/>
+            value={this.state.password}
+            onChangeText={(password) => this.setState({password})}/>
           </View>
           <View style={{flex: 0.2, flexDirection: 'row', justifyContent: 'center', backgroundColor: 'transparent'}}>
-            <TouchableOpacity style ={styles.sign_in_button}>
+            <TouchableOpacity style ={styles.sign_in_button} onPress={this.handleSignIn}>
               <Text>Login</Text>
             </TouchableOpacity>
           </View>
@@ -49,3 +59,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray'
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    user: state.LogInReducer.user,
+    error: state.LogInReducer.error
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    login: (credentials) => {
+      dispatch(loginAsync(credentials));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInComponent);

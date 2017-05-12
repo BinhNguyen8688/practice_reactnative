@@ -5,14 +5,14 @@ import { Alert } from 'react-native';
 import {
   Actions, Scene, ActionConst
 } from 'react-native-router-flux';
-import SignInComponent from 'containers/SignIn';
+import SignIn from 'containers/SignIn';
 import SignUpComponent from 'containers/SignUp';
 export default scenes = Actions.create (
 <Scene key='root'>
  <Scene key ='Main'>
   <Scene
   key = 'SignIn'
-  component={SignInComponent}
+  component={SignIn}
   initial={true}
   hideNavBar={true}
   type={ActionConst.REPLACE}
